@@ -5,6 +5,11 @@ import validateId from "../utils/validateId";
 import { uploads } from "../utils/upload";
 
 export const createReview = async (req, res) => {
+
+  if (req.body.ratingPercent > 100 || req.body.ratingPercent < 0){
+    return res.status(422).json({ error: "Invalid rating percentage (0 - 100)"})
+  }
+
   const { apartmentId } = req.params;
   let imageLinks = [];
 
